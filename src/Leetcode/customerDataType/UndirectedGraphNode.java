@@ -1,4 +1,4 @@
-package Leetcode1.customerDataType;
+package Leetcode.customerDataType;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package Leetcode1.customerDataType;
+package Leetcode.customerDataType;
 
 public class ListNode {
 	public int val;
