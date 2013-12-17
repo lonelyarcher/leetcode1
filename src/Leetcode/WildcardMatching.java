@@ -1,41 +1,53 @@
 package Leetcode;
 
-public class WildcardMatching {
+public class WildcardMatching
+{
 
-	public static void main(String[] args) {
-		String s = "babaaababaabababbbbbbaabaabbabababbaababbaaabbbaaab";
+	public static void main(String[] args)
+	{
+		String s="bbabaab";
 
-		String p = "***bba**a*bbba**aab**b";
+		String p="*b";
 		System.out.println(isMatch(s, p));
 
 	}
 
-	public static boolean isMatch(String s, String p) {
-		p = p.replaceAll("\\*+", "*");
-		if (p.length() == 0) return s.length() == 0;
-		if (s.length() == 0) return p == "*";
-		if (s.charAt(s.length() - 1) != p.charAt(p.length() - 1)
-				&& p.charAt(p.length() - 1) != '*') return false;
-		p = p.replaceAll("\\*+", "*");
-		//System.out.println(p);
-		return helper(s, p, 0, 0);
+	public static boolean isMatch(String s, String p)
+	{
+		int n=s.length();
+		int m=p.length();
+		int star=-1;
+		int sp=0;
+		int i=0;
+		int j=0;
 
-	}
-
-	private static boolean helper(String s, String p, int i, int j) {
-		if (j >= p.length()) return i >= s.length();
-		if (p.charAt(j) != '*') {
-			if (i >= s.length()) return false;
-			if (p.charAt(j) == s.charAt(i) || p.charAt(j) == '?') return helper(
-					s, p, i + 1, j + 1);
-			else return false;
-		} else {
-			int pp = p.substring(j).replaceAll("\\*", "").length();
-			for (int k = 0; k <= s.length() - i - pp; k++) {
-				if (helper(s, p, i + k, j + 1)) return true;
+		while (i<n)
+		{
+			while (j<m&&p.charAt(j)=='*')
+			{
+				star=j;
+				sp=i;
+				j++;
 			}
-			return false;
+			if(j<m&&(s.charAt(i)==p.charAt(j)||p.charAt(j)=='?'))
+			{
+				i++;
+				j++;
+			}
+			else if(star>=0)
+			{
+				i=++sp;
+				j=star+1;
+			}
+			else
+			{
+				return false;
+			}
 		}
+		while (j<m&&p.charAt(j)=='*')
+			j++;
+		return j==m;
+
 	}
 
 }
